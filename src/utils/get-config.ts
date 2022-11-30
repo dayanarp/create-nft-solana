@@ -18,7 +18,11 @@ export const getConfig = () => {
         clusterApiUrl(
             process.env.PRODUCTION === 'true' ? 'mainnet-beta' : 'devnet'
         ),
-        'confirmed'
+        {
+            commitment: 'confirmed',
+            confirmTransactionInitialTimeout: 60000
+        }
+        
     );
     const provider = new AnchorProvider(
         connection,
@@ -28,7 +32,11 @@ export const getConfig = () => {
     const metaplex = new Metaplex(connection).use(keypairIdentity(keypair)).use(
         bundlrStorage(
             process.env.PRODUCTION === 'true'
-                ? {}
+                ? {
+                      address: 'https://node1.bundlr.network',
+                      providerUrl: 'https://api.mainnet-beta.solana.com',
+                      timeout: 60000,
+                }
                 : {
                       address: 'https://devnet.bundlr.network',
                       providerUrl: 'https://api.devnet.solana.com',
