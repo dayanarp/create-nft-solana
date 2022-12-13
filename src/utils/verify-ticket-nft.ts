@@ -47,6 +47,7 @@ export const verifyTicketNft = async (
             ...ticket,
             ticket_mint: ticketNft.mint.address.toBase58()
         }, 'unverified-tickets.json');
-        console.log(err)
+        console.log(err);
+        return;
     }
 };

@@ -9,7 +9,7 @@ export const mintTicketNft = async (
     eventMintAddress: PublicKey,
     ticket: Ticket
 ) => {
-    const ticketName = `Ticket #${ticket.number}`;
+    const ticketName = `Entrada #${ticket.number}`;
 
     if (process.env.LOG_ENABLED === 'true') {
         console.log('minting ticket', ticketName);
@@ -21,17 +21,20 @@ export const mintTicketNft = async (
             description: event.description,
             image: event.image,
             external_url: event.website,
-            symbol: 'EVENT',
+            symbol: 'EVENT-SG',
             attributes: [
-                toAttribute('Ticket #')(`${ticket.number}`),
-                toAttribute('Location')(event.location),
-                toAttribute('Date')(event.date),
-                toAttribute('Genre')(event.genre),
-            ]
-                .concat(toAttributes('Resident DJs', event.artists))
-                .concat(toAttributes('Special Guests', event.specialGuests))
-                .concat(toAttributes('Guests', event.guests))
-                .concat(toAttributes('Sponsors', event.sponsors)),
+                toAttribute('Entrada #')(`${ticket.number}`),
+                    toAttribute('Fecha')(event.date),
+                    toAttribute('Hora')(event.hour),
+                    toAttribute('Lugar')(event.location),
+                    toAttribute('Organizador')(event.organizer),
+                    
+                    //toAttribute('Genre')(event.genre),
+                ]
+                .concat(toAttributes('Artistas', event.artists))
+                // .concat(toAttributes('Special Guests', event.specialGuests))
+                // .concat(toAttributes('Guests', event.guests))
+                .concat(toAttributes('Patrocinadores', event.sponsors)),
         });
 
         if (process.env.LOG_ENABLED === 'true') {
@@ -44,7 +47,7 @@ export const mintTicketNft = async (
             uri: ticketMetadataUri,
             collection: eventMintAddress,
             tokenOwner: new PublicKey(ticket.wallet),
-            symbol: 'TICKET',
+            symbol: 'SG-TICKET',
         });
     
         if (process.env.LOG_ENABLED === 'true') {
@@ -55,6 +58,7 @@ export const mintTicketNft = async (
     } catch(err) {
         writeToLog(ticket, 'failed-tickets.json');
         console.log(err);
+        return;
     }
 
 };

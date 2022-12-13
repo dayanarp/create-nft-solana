@@ -8,11 +8,13 @@ export interface Event {
     name: string;
     description: string;
     date: string;
+    hour:string;
     location: string;
-    genre: string;
+    // genre: string;
+    organizer:string;
     artists: string[];
-    specialGuests: string[];
-    guests: string[];
+    // specialGuests: string[];
+    // guests: string[];
     sponsors: string[];
     website: string;
     image: string;

@@ -65,4 +65,5 @@ main(event)
     })
     .catch((error) => {
         console.log(error);
+        return;
     });
