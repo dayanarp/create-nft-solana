@@ -3,7 +3,6 @@ import { Nft } from '@metaplex-foundation/js';
 import { createVerifySizedCollectionItemInstruction } from '@metaplex-foundation/mpl-token-metadata';
 import { Transaction } from '@solana/web3.js';
 import { Ticket } from './types';
-import { writeToLog } from './utils';
 
 export const verifyTicketNft = async (
     provider: AnchorProvider,
@@ -30,11 +29,6 @@ export const verifyTicketNft = async (
             )
         );
 
-        writeToLog({
-            ...ticket,
-            ticket_mint: ticketNft.mint.address.toBase58()
-        }, 'verified-tickets.json')
-
         if (process.env.LOG_ENABLED === 'true') {
             console.log(
                 'ticket successfully verified',
@@ -43,11 +37,6 @@ export const verifyTicketNft = async (
         }
 
     } catch(err){
-        writeToLog({
-            ...ticket,
-            ticket_mint: ticketNft.mint.address.toBase58()
-        }, 'unverified-tickets.json');
         console.log(err);
-        return;
     }
 };

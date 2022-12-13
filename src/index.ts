@@ -2,14 +2,12 @@ import { Keypair, PublicKey } from '@solana/web3.js';
 import * as dotenv from 'dotenv';
 import { event } from './event-data';
 import {
-    closeFiles,
     Event,
     getConfig,
-    getTickets,
-    initFiles,
     mintCollectionNft,
     mintTicketNft,
-    verifyTicketNft
+    verifyTicketNft,
+    writeLog
 } from './utils';
 
 dotenv.config();
@@ -26,19 +24,16 @@ const main = async (event: Event) => {
  */
     
     const { provider, metaplex } = getConfig();
-
-    const tickets = await getTickets();
-    event.tickets = tickets
-
-    initFiles();
+    writeLog(`Event: ${event.name}`);
     
     const balance = await provider.connection.getBalance(provider.publicKey)
-    console.log("INITIAL BALANCE:", balance*0.000000001);
+    writeLog(`Initial balance: ${balance*0.000000001}`);
 
     const collectionNft = await mintCollectionNft(metaplex, event);
+    writeLog(`Event Collection NFT: ${collectionNft.mint.address.toBase58()}`);
 
-    const balanceA = await provider.connection.getBalance(provider.publicKey)
-    console.log("COLLECTION CREATION FEE:",((balance - balanceA)*0.000000001));
+    const collectionFee = await provider.connection.getBalance(provider.publicKey)
+    writeLog(`Create Collection Fee: ${(balance - collectionFee)*0.000000001}`);
 
     for (const ticket of event.tickets) {
         const ticketNft = await mintTicketNft(
@@ -50,13 +45,12 @@ const main = async (event: Event) => {
         await verifyTicketNft(provider, collectionNft, ticketNft, ticket);
     }
 
-    const balanceB = await provider.connection.getBalance(provider.publicKey)
-    console.log("MINT NFTS FEES:",((balanceA-balanceB)*0.000000001));
-    console.log("MINT FEE P/NFT:",((balanceA-balanceB)*0.000000001)/event.tickets.length)
-    console.log("TOTAL FEES:", ((balance - balanceB)*0.000000001));
-    console.log("FINAL BALANCE:", balanceB*0.000000001);
+    const mintFee = await provider.connection.getBalance(provider.publicKey);
 
-    closeFiles();
+    writeLog(`Total Minting Fee: ${(collectionFee-mintFee)*0.000000001}`);
+    writeLog(`Minting Fee: ${((collectionFee-mintFee)*0.000000001)/event.tickets.length}`);
+    writeLog(`Total Fees: ${(balance - mintFee)*0.000000001}`);
+    writeLog(`Final Balance: ${mintFee*0.000000001} \n\n`);
 };
 
 main(event)

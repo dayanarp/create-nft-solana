@@ -3,19 +3,17 @@ export interface Ticket {
     wallet: string;
 }
 
+export interface Attribute {
+    [key: string]: unknown;
+    trait_type?: string;
+    value?: string;
+}
+
 export interface Event {
     collection: string;
     name: string;
     description: string;
-    date: string;
-    hour:string;
-    location: string;
-    // genre: string;
-    organizer:string;
-    artists: string[];
-    // specialGuests: string[];
-    // guests: string[];
-    sponsors: string[];
+    attributes: Attribute[];
     website: string;
     image: string;
     tickets: Ticket[];

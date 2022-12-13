@@ -1,7 +1,7 @@
 import { Metaplex } from '@metaplex-foundation/js';
 import { PublicKey } from '@solana/web3.js';
 import { Event, Ticket } from './types';
-import { toAttribute, toAttributes, writeToLog } from './utils';
+import { toAttribute } from './utils';
 
 export const mintTicketNft = async (
     metaplex: Metaplex,
@@ -24,17 +24,8 @@ export const mintTicketNft = async (
             symbol: 'EVENT-SG',
             attributes: [
                 toAttribute('Entrada #')(`${ticket.number}`),
-                    toAttribute('Fecha')(event.date),
-                    toAttribute('Hora')(event.hour),
-                    toAttribute('Lugar')(event.location),
-                    toAttribute('Organizador')(event.organizer),
-                    
-                    //toAttribute('Genre')(event.genre),
+                ...event.attributes
                 ]
-                .concat(toAttributes('Artistas', event.artists))
-                // .concat(toAttributes('Special Guests', event.specialGuests))
-                // .concat(toAttributes('Guests', event.guests))
-                .concat(toAttributes('Patrocinadores', event.sponsors)),
         });
 
         if (process.env.LOG_ENABLED === 'true') {
@@ -56,9 +47,7 @@ export const mintTicketNft = async (
     
         return ticketNft;
     } catch(err) {
-        writeToLog(ticket, 'failed-tickets.json');
         console.log(err);
-        return;
     }
 
 };
