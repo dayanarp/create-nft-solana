@@ -9,7 +9,7 @@ export const mintTicketNft = async (
     eventMintAddress: PublicKey,
     ticket: Ticket
 ) => {
-    const ticketName = `Entrada #${ticket.number}`;
+    const ticketName = `POAP #${ticket.number}`;
 
     if (process.env.LOG_ENABLED === 'true') {
         console.log('minting ticket', ticketName);
@@ -21,9 +21,9 @@ export const mintTicketNft = async (
             description: event.description,
             image: event.image,
             external_url: event.website,
-            symbol: 'EVENT-SG',
+            symbol: 'EVENT',
             attributes: [
-                toAttribute('Entrada #')(`${ticket.number}`),
+                toAttribute('POAP #')(`${ticket.number}`),
                 ...event.attributes
                 ]
         });
@@ -38,7 +38,7 @@ export const mintTicketNft = async (
             uri: ticketMetadataUri,
             collection: eventMintAddress,
             tokenOwner: new PublicKey(ticket.wallet),
-            symbol: 'SG-TICKET',
+            symbol: 'POAP',
         });
     
         if (process.env.LOG_ENABLED === 'true') {

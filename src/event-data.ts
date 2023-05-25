@@ -1,36 +1,32 @@
 export const event = {
-    collection: null,
-    name: 'Bogotá Party',
-    description: 'This NFT was originally minted during the Bogotá Party.',
-    website: 'https://heavyduty.builders',
-    image: 'http://as01.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png',
+    collection: 'UjTbrC7sHri4MKtYwUwnBUJFKnF7ptRgf9BfCFurBeL',
+    name: 'The Sharing Tech-Revolution',
+    description: 'The first step into your blockchain journey',
+    website: 'https://twitter.com/DISCO_Protocol',
+    image: 'https://arweave.net/Ak8Po4FbaicFTro_6FTw490hc9dOuDpk87N1nIIAONY', 
     attributes: [
         {
             trait_type: 'Date',
-            value: 'NOV 4 2022'
+            value: 'May 24 2023'
+        },
+        {
+            trait_type: 'Hour',
+            value: '18:00-21:00 (GMT+1)'
         },
         {
             trait_type: 'Location',
-            value: 'Bogotá Colombia'
+            value: 'The Zen Den, Costa Adeje, Tenerife'
         },
         {
-            trait_type: 'Genre',
-            value: 'Rock'
+            trait_type: 'Organizer',
+            value: 'Ladies in Business'
         },
         {
-            trait_type: 'Artists',
-            value: 'The Rolling Stones, The Beatles'
+            trait_type: 'Speakers',
+            value: 'Cindy Guerra (@GrrMndz), Susie Jiang (@mywanderkit), Bella Mireau (@x.bellamie.x), Astrid Vagabonds (@vagabonds_nomads)'
         },
-        {
-            trait_type: 'Sponsors',
-            value: 'Heavy Duty Builders, Solana University',
-        },
-
     ],
     tickets: [
-        {
-            number: 1,
-            wallet: 'DKJZ2DT8y3g2kA2yskYnnPd9jSNJDGskaFmsGfyJg4Dr'
-        }
+       
     ],
 };

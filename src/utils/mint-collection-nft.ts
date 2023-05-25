@@ -18,7 +18,7 @@ export const mintCollectionNft = async (metaplex: Metaplex, event: Event) => {
                 description: event.description,
                 image: event.image,
                 external_url: event.website,
-                symbol: 'SG-EVENT',
+                symbol: 'EVENT',
                 attributes: event.attributes,
             });
 
@@ -30,7 +30,7 @@ export const mintCollectionNft = async (metaplex: Metaplex, event: Event) => {
                 name: event.name,
                 sellerFeeBasisPoints: 0,
                 uri: collectionMetadataUri,
-                symbol: 'SG-EVENT',
+                symbol: 'EVENT',
                 isCollection: true,
             });
 

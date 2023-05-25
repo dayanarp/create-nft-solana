@@ -14,15 +14,6 @@ dotenv.config();
 
 const main = async (event: Event) => {
 
-    /*  //const keypair = Keypair.generate();
-    const keypair = Keypair.fromSecretKey(
-        Uint8Array.from([16,251,236,66,185,141,125,173,211,56,33,24,229,241,78,188,196,111,95,175,33,30,136,127,121,194,183,236,106,62,113,238,217,60,140,54,128,133,163,208,124,54,191,121,201,2,243,41,111,134,52,162,208,104,254,252,225,32,252,104,225,167,128,169])
-      );
-    const uintarray = new Uint8Array(keypair.secretKey)
-    const buff = Buffer.from(uintarray)
-    console.log(buff.toString('base64'), keypair.publicKey.toBase58()) 
- */
-    
     const { provider, metaplex } = getConfig();
     writeLog(`Event: ${event.name}`);
     
